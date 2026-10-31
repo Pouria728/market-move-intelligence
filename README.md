@@ -12,7 +12,11 @@
 
 Most tools show you a price chart. This one is a companion to charting tools like TradingView: it reads every piece of market-moving news for BTC and NVDA, measures what price actually did afterward, and turns that into one honest, plain-English read of the current situation - confidence, risk, track record, and all.
 
-![Overview page](docs/screenshot-overview.png)
+![NVIDIA overview card](docs/screenshot-overview.png)
+
+Same read, independently, for Bitcoin:
+
+![Bitcoin overview card](docs/screenshot-overview-btc.png)
 
 ## Why this exists
 
