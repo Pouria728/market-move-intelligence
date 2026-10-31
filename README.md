@@ -1,5 +1,13 @@
 # Market Move Intelligence
 
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL%20Server-CC2927?logo=microsoftsqlserver&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/Google%20Gemini-LLM-8E75B2?logo=googlegemini&logoColor=white)
+![n8n](https://img.shields.io/badge/n8n-workflow%20automation-EA4B71?logo=n8n&logoColor=white)
+
 **A news-impact intelligence layer for Bitcoin and NVIDIA - built to explain *why* the price moved, not just that it did.**
 
 Most tools show you a price chart. This one is a companion to charting tools like TradingView: it reads every piece of market-moving news for BTC and NVDA, measures what price actually did afterward, and turns that into one honest, plain-English read of the current situation - confidence, risk, track record, and all.
@@ -13,6 +21,15 @@ Reading financial news is easy. Knowing whether it actually *mattered* is not. T
 - **It measures, not just reports.** Every headline gets its real 1-hour and next-day price reaction attached to it, adjusted against a sector benchmark (SOX for NVDA, an ETH+QQQ blend for BTC) so a broad market rally isn't mistaken for one story's own effect.
 - **It grades its own calls.** An AI track record tracks how often the system's Bullish/Bearish reads have actually held up - including an honest calibration check on whether its *stated* confidence means anything (so far: not reliably).
 - **It writes for a human, not an analyst.** No unexplained jargon, no raw data dumps - every section ends in a plain-language verdict, with the supporting numbers available on hover for anyone who wants them.
+
+## What makes this technically interesting
+
+This isn't just a CRUD app wired to an LLM. A few things it does that most portfolio projects don't bother with:
+
+- **LLM-powered classification and synthesis, not a single prompt-and-done call.** Two separate Gemini agents - one classifies individual headlines (sentiment, importance, category) from engineered prompts with explicit voice/style rules and worked examples; the other periodically synthesizes 48 hours of signals into one coherent "state of the asset" read, reconciling cases where news tone and actual price action disagree instead of papering over them.
+- **Benchmark-adjusted impact measurement.** Raw price moves are misleading - a stock drop during a sector-wide selloff isn't the headline's fault. Every measured reaction is computed against a live sector benchmark (SOX / ETH+QQQ) to isolate what a specific story actually caused.
+- **A self-grading AI, not a black box.** The dashboard tracks its own historical accuracy per confidence bucket and surfaces when its stated confidence *doesn't* predict real-world accuracy - a calibration check most AI-powered products never build, because the honest answer is sometimes unflattering.
+- **Full data pipeline, not a static dataset.** RSS ingestion → dedup → LLM classification → SQL persistence → REST API → React, running on a live schedule, not a one-time notebook export.
 
 ![Asset detail page](docs/screenshot-detail.png)
 
@@ -53,6 +70,8 @@ News sources (RSS feeds)          Live prices + macro data
 - A macro-context read that compares each asset's move against the broader market in plain language, not a wall of index numbers
 - A "new since your last visit" indicator and a first-time-visitor "how to read this" explainer
 
+![AI track record and confidence calibration](docs/screenshot-track-record.png)
+
 ## Running it locally
 
 There's no live demo (the backend depends on a locally-hosted SQL Server), so this is a clone-and-run project. The screenshots above are real, current output from a live local run.
@@ -70,10 +89,13 @@ The frontend expects the `vw_Dashboard_*` SQL views and `Market_Signals`/`Market
 
 ## Tech stack
 
-**Frontend:** React 18, Vite, hand-written CSS (no component library)
-**Backend:** FastAPI, pyodbc, SQL Server
-**Data pipeline:** n8n, Google Gemini, RSS feeds
-**Verification:** Playwright (manual end-to-end checks during development, not an automated CI suite yet)
+**Frontend** — React 18 · Vite · JavaScript (JSX) · custom-built CSS design system (no UI library) · REST API consumption
+
+**Backend** — Python · FastAPI · REST API design · pyodbc · SQL Server · parameterized queries
+
+**AI / data pipeline** — Google Gemini (LLM) · prompt engineering · n8n workflow automation · RSS ingestion · scheduled ETL into SQL Server
+
+**Verification** — Playwright (manual end-to-end checks during development, not an automated CI suite yet)
 
 ## License
 
