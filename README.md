@@ -70,6 +70,8 @@ News sources (RSS feeds)          Live prices + macro data
 - A macro-context read that compares each asset's move against the broader market in plain language, not a wall of index numbers
 - A "new since your last visit" indicator and a first-time-visitor "how to read this" explainer
 
+![News impact history - each headline's real price reaction](docs/screenshot-news-history.png)
+
 ![AI track record and confidence calibration](docs/screenshot-track-record.png)
 
 ## Running it locally
