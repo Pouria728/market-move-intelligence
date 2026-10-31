@@ -1,5 +1,6 @@
 # Market Move Intelligence
 
+[![CI](https://github.com/Pouria728/market-move-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/Pouria728/market-move-intelligence/actions/workflows/ci.yml)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)
@@ -101,7 +102,16 @@ The frontend expects the `vw_Dashboard_*` SQL views and `Market_Signals`/`Market
 
 **AI / data pipeline** — Google Gemini (LLM) · prompt engineering · n8n workflow automation · RSS ingestion · scheduled ETL into SQL Server
 
-**Verification** — Playwright (manual end-to-end checks during development, not an automated CI suite yet)
+**Verification** — Playwright (manual end-to-end checks during development) · GitHub Actions (frontend build + backend dependency/compile check on every push)
+
+## Known limitations / what's next
+
+Being upfront about the current state, not just the highlights:
+
+- **No automated test suite.** Verification during development was manual Playwright runs against a live local instance, not a committed test suite - CI currently checks that both halves build and compile cleanly, not that the logic is correct.
+- **No live deployment.** The backend depends on a locally-hosted SQL Server, so this is a clone-and-run project for now. The screenshots in this README are real output, not mockups.
+- **The data pipeline isn't in this repo.** The n8n workflow and scheduled price/macro collectors run on personal infrastructure - this repo is the backend + frontend that read from what they produce.
+- **Possible next steps:** a historical backtest view (what a call would have been worth over time, framed as measurement - not advice), a source-credibility breakdown (which outlets' headlines are actually move-predictive), and a confidence/mood trend over time instead of just the current snapshot.
 
 ## License
 

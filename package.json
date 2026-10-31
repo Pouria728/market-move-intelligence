@@ -1,5 +1,12 @@
 {
   "name": "market-move-intelligence",
+  "description": "A news-impact intelligence layer for Bitcoin and NVIDIA - explains why price moved, not just that it did.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pouria728/market-move-intelligence"
+  },
+  "author": "Pouria728",
+  "license": "UNLICENSED",
   "private": true,
   "version": "0.0.1",
   "type": "module",
